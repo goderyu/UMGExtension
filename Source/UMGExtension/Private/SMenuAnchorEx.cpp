@@ -35,7 +35,7 @@ void SMenuAnchorEx::SetIsOpen(bool InIsOpen, const bool bFocusMenu, const int32 
 	{
 		if (InIsOpen)
 		{
-			Super::SetIsOpen(InIsOpen, bFocusMenu, FocusUserIndex);
+			//Super::SetIsOpen(InIsOpen, bFocusMenu, FocusUserIndex);
 		}
 		else
 		{
