@@ -6,6 +6,7 @@
 #include "Widgets/SNullWidget.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 #define LOCTEXT_NAMESPACE "UMGExtension"
 
@@ -113,8 +114,21 @@ void UMenuAnchorEx::ToggleOpen(bool bFocusOnOpen)
 {
 	if (MyMenuAnchor.IsValid())
 	{
-		MyMenuAnchor->SetIsOpen(!MyMenuAnchor->IsOpen(), bFocusOnOpen);
+		if (MyMenuAnchor->IsOpen() == true)
+		{
+			BeforeDismissed();
+			UE_LOG(LogTemp, Log, TEXT("BeforeDismissed"));
+			float Duration = 2.f;
+			UKismetSystemLibrary::Delay(this, Duration, FLatentActionInfo(1, 100, TEXT("After"), this));
+		}
+		else
+			MyMenuAnchor->SetIsOpen(!MyMenuAnchor->IsOpen(), bFocusOnOpen);
 	}
+}
+
+void UMenuAnchorEx::After()
+{
+	MyMenuAnchor->SetIsOpen(!MyMenuAnchor->IsOpen(), false);
 }
 
 void UMenuAnchorEx::Open(bool bFocusMenu)
@@ -129,6 +143,7 @@ void UMenuAnchorEx::Close()
 {
 	if (MyMenuAnchor.IsValid())
 	{
+		BeforeDismissed();
 		return MyMenuAnchor->SetIsOpen(false, false);
 	}
 }

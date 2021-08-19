@@ -94,6 +94,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Menu Anchor")
 		bool IsOpen() const;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Menu Anchor")
+		void BeforeDismissed();
+
 	/**
 	 * Returns true if we should open the menu due to a click. Sometimes we should not, if
 	 * the same MouseDownEvent that just closed the menu is about to re-open it because it
@@ -126,7 +129,8 @@ protected:
 	// UWidget interface
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 	// End of UWidget interface
-
+	UFUNCTION()
+	void After();
 protected:
 	TSharedRef<SWidget> HandleGetMenuContent();
 	void HandleMenuOpenChanged(bool bIsOpen);

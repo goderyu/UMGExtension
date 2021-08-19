@@ -9,6 +9,7 @@
 class UMGEXTENSION_API SMenuAnchorEx : public SMenuAnchor
 {
 public:
+	//DECLARE_MULTICAST_DELEGATE_
 	/**
 	 * Open or close the popup
 	 *
